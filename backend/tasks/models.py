@@ -12,6 +12,10 @@ class Label(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['name', 'owner'], name='unique_label')
         ]
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
@@ -21,7 +25,8 @@ class Task(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     labels = models.ManyToManyField(Label)
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(fields=['title', 'owner'], name='unique_task')
-    #     ]
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.title
